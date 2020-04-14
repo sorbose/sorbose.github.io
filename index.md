@@ -28,7 +28,9 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-# header1 测试标题一
+# 测试标题一
+## 测试标题2
+### 测试标题3
 
 ### Jekyll Themes
 
