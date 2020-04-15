@@ -1,5 +1,6 @@
 # 测试
-<input>
+<input/>
 <form>
-  Enter your Name <input type="text" name="name">
+  Enter<input type="text" name="name"/>
+<input type="submit" value="Submit" />
 </form>
