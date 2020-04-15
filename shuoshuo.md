@@ -1,3 +1,4 @@
+<style type="text/css">
 .datetime{text-align:right; font-size:12px; color:grey}
 ***
 # 我的第一段话
