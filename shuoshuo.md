@@ -1,3 +1,4 @@
+.datetime{text-align:right font-size:12px color:grey}
 ***
 # 我的第一段话
 今天开通了GitHub上的博客，希望以后我能抽空来写点什么。
