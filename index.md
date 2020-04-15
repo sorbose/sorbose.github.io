@@ -25,7 +25,10 @@ Syntax highlighted code block
 
 [Link](url) and ![Image](src)
 ```
-
+[测试链接](test1.md)
+```
+#include<stdio.h>
+```
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 # 测试标题一
