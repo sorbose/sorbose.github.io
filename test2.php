@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>HTML测试页面</title>
+<title>PHP测试页面</title>
 </head>
 <body>
  
