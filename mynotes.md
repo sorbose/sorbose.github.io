@@ -1,4 +1,4 @@
-#lower_bound与upper_bound二分查找
+# lower_bound与upper_bound二分查找
 lower_bound传入三个参数，分别是起始地址first,结束地址last（左闭右开区间），待查找元素x，返回第一个大于或等于x的地址
 upper_bound传参同lower_bound,返回第一个大于x的地址，头文件#include<algorithm>
 例如
