@@ -6,3 +6,6 @@
 # 说说
 这里用来记录我的一些我的闲言碎语，日常心情。
 <p><a href="shuoshuo.html" class="more">更多请点击...</a></p>
+# 笔记
+记录学习笔记
+<p><a href="mynotes.html" class="more">更多请点击...</a></p>
