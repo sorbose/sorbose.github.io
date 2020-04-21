@@ -2,7 +2,7 @@
 lower_bound传入三个参数，分别是起始地址first,结束地址last（左闭右开区间），待查找元素x，返回第一个大于或等于x的地址
 upper_bound传参同lower_bound,返回第一个大于x的地址，头文件#include<algorithm>
 例如
-'''
+`
 #include<stdio.h>
 #include<iostream>
 #include<string.h>
@@ -24,5 +24,5 @@ int main()
 	cout<<upper_bound(a+1,a+n,x)-a<<endl;
 	return 0;
 } 
-'''
+`
 最后两行输出为3，5（下标）
