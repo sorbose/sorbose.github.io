@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World!</title>
+</head>
+<style>
+    .rainbow{
+        font-size: 70px;
+        text-align: center;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: bolder;
+        padding-top: 10%;
+        }
+    button{
+        display: block;
+        margin:5% auto;
+        height:auto;
+        width:7%;
+        border: none;
+        border-radius: 5px;
+        background-color:lightsalmon;
+        font-size: large;
+        text-align: center;
+        font-family: '等线','黑体';
+        padding: 1%;
+    }
+    button:hover{
+        background-color:rgba(255, 160, 122, 0.575);
+           }
+    input{
+        display: block;
+        text-align: center;
+        margin:5% auto;
+        font-size: xx-large;
+        border-radius: 5px;
+        font-family: '等线','黑体';
+        width: 30%;
+        border-color: lightsalmon;
+    }
+</style>
+<body>
+<div class='rainbow' id='helloworld' style="color:#ffffff">
+        HELLO WORLD
+    </div>
+    <input type="text" id="text" autocomplete="off"></input>
+    <button id="btn" onclick="changeText(document.getElementById('text').value)">更换</button>
+<script>
+    function getColors(){
+        var color=['red','blue','green','aqua','funchsia',
+            'maroon','lime','navy','teal','silver'];
+        return color;
+    }
+     function changeColor(iniNum){
+            var colorLen;
+            color=getColors();
+            colorLen=color.length;
+            var num=Math.floor(Math.random()*(colorLen-1)+1);
+            num =num+ iniNum;
+            if(num>=colorLen)
+            {
+                num =num-colorLen;
+            }
+            document.getElementById("helloworld").style.color=color[num];
+            changeColorIniNum= num;
+            console.log(changeColorIniNum);
+        }
+    function changeText(nText){
+        if (nText.trim() ==""){
+            nText="HELLO WORLD";
+        }
+        document.getElementById("helloworld").innerText=nText;
+    }
+    var changeColorIniNum=Math.floor(Math.random()*getColors().length);
+    changeColor(changeColorIniNum);
+    setInterval('changeColor(changeColorIniNum)',1000);
+</script>
+</body>
+</html>
