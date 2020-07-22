@@ -8,4 +8,5 @@
 <p><a href="shuoshuo.html" class="more">更多请点击...</a></p>
 # 笔记
 记录学习笔记
+## <a href="article/20200722.html">树莓派4B从SD卡复制系统到硬盘启动</a>
 <p><a href="mynotes.html" class="more">更多请点击...</a></p>
