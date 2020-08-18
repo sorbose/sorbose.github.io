@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>模拟双色球</title>
-    <script src="/jquery/jquery-3.5.1.js"></script>
+    <script src="./jquery/jquery-3.5.1.js"></script>
     <script>
         !window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js><\/script>');
     </script>
@@ -144,13 +144,15 @@
         $(document).ready(function () {
             $("#explain_summary").click(
                 function(){
-                    if($("#explain").height()<=200)
+                    if($("#explain").height()<=50)
                     {
-                        $("#explain").css("height","480px");
+                        $("#explain").css("height","300px");
+                        $("#explain").css("overflow","auto");
                         $(this).text("▼点击收起");
                     }
                     else{
                         $("#explain").css("height","40px");
+                        $("#explain").css("overflow","hidden");
                         $(this).text("▶点击展开玩法说明");
                     }
                     
