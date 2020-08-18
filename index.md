@@ -10,3 +10,7 @@
 记录学习笔记
 ## <a href="article/20200722.html">树莓派4B从SD卡复制系统到硬盘启动</a>
 <p><a href="mynotes.html" class="more">更多请点击...</a></p>
+# 瞎搞
+乱七八糟的前端小玩意
+## <a href="./demo/helloworld.html">闪瞎狗眼的HELLO WORLD</a>
+## <a href="./demo/ssq_simulation.html">模拟双色球彩票开奖</a>
