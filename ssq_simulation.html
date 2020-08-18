@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟双色球</title>
+    <script src="./jquery/jquery-3.5.1.js"></script>
+    <script>
+        !window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js><\/script>');
+    </script>
+    <style>
+        h1 {
+            font-family: '等线', '华文细黑', '黑体';
+        }
+
+        .note {
+            font-family: "楷体", "华文楷体", "楷体-GB2312";
+            color: red;
+            text-align: right;
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        .para {
+            background-color: #F0FFFF;
+        }
+
+        .redball {
+            display: inline;
+            border: red 2px solid;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+            font-size: x-large;
+        }
+
+        .sel_redball {
+            display: inline-block;
+            border: red 4px solid;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+            font-size: x-large;
+            margin-block-start: 3px;
+            margin-block-end: 3px;
+            margin-inline-start: 2px;
+            margin-inline-end: 2px;
+            user-select: none;
+        }
+
+        .sel_blueball {
+            display: inline-block;
+            border: blue 4px solid;
+            border-radius: 50%;
+            background-color: blue;
+            color: white;
+            font-size: x-large;
+            margin-block-start: 3px;
+            margin-block-end: 3px;
+            margin-inline-start: 2px;
+            margin-inline-end: 2px;
+            user-select: none;
+        }
+
+        .sel_redball:hover {
+            border: rgb(255, 146, 164) 4px solid;
+            background-color: rgb(255, 146, 164);
+        }
+
+        .sel_blueball:hover {
+            border: rgb(143, 143, 255) 4px solid;
+            background-color: rgb(143, 143, 255);
+        }
+
+        .blueball {
+            display: inline;
+            border: blue 2px solid;
+            border-radius: 50%;
+            background-color: blue;
+            color: white;
+            font-size: x-large;
+        }
+
+        table {
+            font-size: large;
+            font-family: '等线', '华文细黑', '黑体';
+            font-weight: 100;
+        }
+
+        #select_red {
+            border: 2px red solid;
+            border-radius: 5px;
+            width: 60%;
+            height: 100%;
+            padding: 0px;
+            display: inline-block;
+        }
+
+        #select_blue {
+            border: 2px blue solid;
+            border-radius: 5px;
+            width: 30%;
+            height: 100%;
+            padding: 0px;
+            display: inline-block;
+        }
+
+        button {
+            background-color: tomato;
+            border: 0;
+            border-radius: 8px;
+            color: white;
+            font-size: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            margin: 10px 5px;
+            outline-color: tomato;
+        }
+
+        button:hover {
+            background-color: white;
+            color: tomato;
+        }
+
+        .del_selected {
+            display: inline;
+            font-size: medium;
+        }
+    </style>
+    <script>
+        now_sel_red = [];
+        now_sel_red_num = 0;
+        now_sel_blue = 0;
+        add_sum = 0;
+        now_add_num = 0;
+        now_round = 1;
+        $(document).ready(function () {
+            $(".sel_redball").click(
+                function () {
+                    var sel_red_click = Number($(this).text());
+                    if (now_sel_red.indexOf(sel_red_click) != -1) {
+                        var i = now_sel_red.indexOf(sel_red_click);
+                        for (; i <= now_sel_red_num - 1; i++) {
+                            now_sel_red[i] = now_sel_red[i + 1];
+                        }
+                        delete now_sel_red[now_sel_red.indexOf(sel_red_click)];
+                        now_sel_red_num -= 1;
+                        $(this).css("background-color", "red");
+                        $(this).css("border-color", "red");
+                        return;
+                    }
+                    if (now_sel_red_num >= 6) { return; }
+                    $(this).css("background-color", "grey");
+                    $(this).css("border-color", "grey");
+                    now_sel_red[now_sel_red_num] = sel_red_click;
+                    now_sel_red_num += 1;
+                }
+            );
+            $(".sel_blueball").click(
+                function () {
+                    var sel_blue_click = Number($(this).text());
+                    if (now_sel_blue === sel_blue_click) {
+                        now_sel_blue = 0;
+                        $(this).css("background-color", "blue");
+                        $(this).css("border-color", "blue");
+                        return;
+                    }
+                    if (now_sel_blue !== 0) { return; }
+                    now_sel_blue = sel_blue_click;
+                    $(this).css("background-color", "grey");
+                    $(this).css("border-color", "grey");
+
+                });
+            $("#btn_add").click(
+                function () {
+                    if (now_sel_red_num != 6 || now_sel_blue == 0) { return; }
+                    now_sel_red.sort(function (a, b) { return a - b; });
+                    add_sum += 1;
+                    var i;
+                    for (i = 0; i <= now_sel_red_num - 1; i++) {
+                        if (Number(now_sel_red[i]) <= 9) {
+                            now_sel_red[i] = '0' + String(now_sel_red[i]);
+                        }
+                        else {
+                            now_sel_red[i] = String(now_sel_red[i]);
+                        }
+                    }
+                    if (Number(now_sel_blue <= 9)) { now_sel_blue = '0' + String(now_sel_blue); }
+                    else {
+                        now_sel_blue = String(now_sel_blue);
+                    }
+                    var content = `<tr id="selected_` + add_sum + `">
+            <th>
+                <span style="color:red">`+ now_sel_red.join(" ") + ` </span>
+                <span style="color:blue">`+ now_sel_blue + `</span>
+            </th>
+            <th>
+                <li class="del_selected" id="del_selected_`+ add_sum + `">&nbsp;&nbsp;<a href="javascript:void(0)"
+                    onclick="del_a_selected('`+ add_sum + `')">删除</a></li>
+            </th>
+        </tr>`;
+                    $("#tbl_now_selected").append(content);
+                    now_add_num += 1;
+                    $("#sum_sel").html("共计：" + now_add_num + "注，" + now_add_num * 2 + "元");
+
+                    $(".sel_redball").css("background-color", "red");
+                    $(".sel_redball").css("border-color", "red");
+                    $(".sel_blueball").css("background-color", "blue");
+                    $(".sel_blueball").css("border-color", "blue");
+                    now_sel_red = [];
+                    now_sel_red_num = 0;
+                    now_sel_blue = 0;
+                }
+            )
+            $("#btn_rand").click(
+                function () {
+
+                    $(".sel_redball").css("background-color", "red");
+                    $(".sel_redball").css("border-color", "red");
+                    $(".sel_blueball").css("background-color", "blue");
+                    $(".sel_blueball").css("border-color", "blue");
+                    now_sel_red = [];
+                    now_sel_red_num = 0;
+                    now_sel_blue = 0;
+
+                    now_sel_blue = parseInt(Math.random() * 16 + 1);
+                    var now_sel_blue_str;
+                    if (Number(now_sel_blue <= 9)) { now_sel_blue_str = '0' + String(now_sel_blue); }
+                    else { now_sel_blue_str = String(now_sel_blue); }
+                    var blueball = $(".sel_blueball:contains(" + now_sel_blue_str + ")");
+                    blueball.css("background-color", "grey");
+                    blueball.css("border-color", "grey");
+                    var tmp;
+                    for (; now_sel_red_num <= 5; now_sel_red_num++) {
+                        tmp = parseInt(Math.random() * 33 + 1);
+                        if (now_sel_red.indexOf(tmp) == -1) { now_sel_red[now_sel_red_num] = tmp; }
+                        else { now_sel_red_num--; continue; }
+                    }
+                    var i;
+                    var redball;
+                    for (i = 0; i <= now_sel_red_num - 1; i++) {
+                        if (Number(now_sel_red[i] <= 9)) {
+                            now_sel_red[i] = '0' + String(now_sel_red[i]);
+                        }
+                        else {
+                            now_sel_red[i] = String(now_sel_red[i]);
+                        }
+                        redball = $(".sel_redball:contains(" + now_sel_red[i] + ")");
+                        redball.css("background-color", "grey");
+                        redball.css("border-color", "grey");
+                        now_sel_red[i] = Number(now_sel_red[i]);
+                    }
+                }
+            )
+            $("#btn_bet").click(
+                function () {
+                    if (now_add_num == 0) { return; }
+                    var winning_red = [];
+                    var winning_blue;
+                    var lottery_arr = [];
+                    var a_lottary = [];
+                    var redball = [];
+                    var blueball = [];
+                    var i, j;
+                    var tmp;
+                    var tbl_list = $("#tbl_now_selected").children("tr");
+                    for (var i = 0; i < tbl_list.length; i++) {
+                        redball = tbl_list.eq(i).children("th").eq(0).children("span").eq(0).text().split(" ");
+                        blueball = tbl_list.eq(i).children("th").eq(0).children("span").eq(1).text().split(" ");
+                        a_lottary.push(redball, blueball);
+                        lottery_arr.push(a_lottary);
+                        a_lottary = [];
+
+                    }
+
+                    $.when(
+                        $.get("https://www.random.org/sequences/?min=1&max=33&col=1&format=plain&rnd=new"),
+                        $.get("https://www.random.org/integers/?num=1&min=1&max=16&col=1&base=10&format=plain&rnd=new"),
+
+                    ).then(
+                        function (data1, data2) {
+                            winning_red = data1[0].split("\n").slice(0, 6)
+                            winning_blue = data2[0].split("\n")[0];
+                            isWinning(winning_red, winning_blue, lottery_arr);
+                        }, function () {
+
+                            for (i = 0; i <= 5; i++) {
+                                tmp = parseInt(Math.random() * 33 + 1);
+                                if (winning_red.indexOf(tmp) == -1) { winning_red[i] = tmp; }
+                                else { i--; continue; }
+                            }
+                            winning_blue = parseInt(Math.random() * 16 + 1);
+                            isWinning(winning_red, winning_blue, lottery_arr);
+                        }
+                    );
+                    function isWinning(winning_red, winning_blue, lottery_arr) {
+                        var i, j, tmp;
+                        var prize_1 = parseInt(Math.random() * 500000 + 500000) * 8;
+                        var prize_2 = parseInt(Math.random() * 17000 + 8000) * 8;
+                        var prize_3 = 3000; var prize_4 = 200; var prize_5 = 10; var prize_6 = 5;
+
+                        var len = lottery_arr.length;
+                        var win_red_num, win_blue_num;
+                        var prize_sum = 0;
+                        var p1_sum, p2_sum, p3_sum, p4_sum, p5_sum, p6_sum;
+                        p1_sum = p2_sum = p3_sum = p4_sum = p5_sum = p6_sum = 0;
+                        var content = "";
+                        for (i = 0; i <= 5; i++) {
+                            if (Number(winning_red[i] <= 9)) {
+                                winning_red[i] = "0" + String(winning_red[i]);
+                                content = content + winning_red[i] + " ";
+                            } else {
+                                winning_red[i] = String(winning_red[i]);
+                                content = content + winning_red[i] + " ";
+                            }
+                        }
+                        if (Number(winning_blue) <= 9) {
+                            winning_blue = "0" + String(winning_blue);
+                        } else {
+                            winning_blue = String(winning_blue);
+                        }
+                        for (i = 0; i <= len - 1; i++) {
+                            for (j = 0, win_red_num = 0; j <= 5; j++) {
+                                if (winning_red.indexOf(lottery_arr[i][0][j]) != -1) {
+                                    win_red_num++;
+                                }
+                            }
+
+
+                            win_blue_num = 0;
+                            if (lottery_arr[i][1].indexOf(winning_blue) != -1) {
+                                win_blue_num = 1;
+                            }
+                            switch (win_red_num) {
+                                case 6:
+                                    if (win_blue_num) {
+                                        prize_sum += prize_1;
+                                        p1_sum++;
+                                    } else {
+                                        prize_sum += prize_2;
+                                        p2_sum++;
+                                    }
+                                    break;
+                                case 5:
+                                    if (win_blue_num) {
+                                        prize_sum += prize_3;
+                                        p3_sum++;
+                                    } else {
+                                        prize_sum += prize_4;
+                                        p4_sum++;
+                                    }
+                                case 4:
+                                    if (win_blue_num) {
+                                        prize_sum += prize_4;
+                                        p4_sum++;
+                                    } else {
+                                        prize_sum += prize_5;
+                                        p5_sum++;
+                                    }
+                                default:
+                                    if (win_blue_num) {
+                                        prize_sum += prize_6;
+                                        p6_sum++;
+                                    }
+                            }
+                        }
+                        $("#tbl_last_round").text("X" + now_round);
+                        $("#sequence").text(content);
+                        content = "";
+                        
+                        content = winning_blue;
+                        $("#last_blueball").text(content);
+                        winning_red.sort();
+                        content = `<li class="redball">` + winning_red[0] + `</li><li class="redball">` + winning_red[1] + `</li>
+                        <li class="redball">`+ winning_red[2] + `</li>
+                        <li class="redball">`+ winning_red[3] + `</li>
+                        <li class="redball">`+ winning_red[4] + `</li>
+                        <li class="redball">`+ winning_red[5] + `</li>
+                        <li class="blueball">`+ winning_blue + `</li>`;
+                        $("#last_winning_num").html(content);
+
+                        content = `<tr>
+                <th>X`+ now_round + `</th>
+                <th>
+                    <ul>`+ content + "</ul></th></tr>";
+                        $("#his_win_num").append(content);
+                        now_round++;
+                        $("#div_his_win").show();
+                        $("#last").show();
+                        $("#tb_now").text("第X" + now_round + "期");
+
+                        var profit = prize_sum - len * 2;
+                        $("#now_profit").text(Number($("#now_profit").text()) + profit);
+                        $("#sum_cost").text(Number($("#sum_cost").text()) + len * 2);
+                        $("#sum_winning").text(Number($("#sum_winning").text()) + prize_sum);
+                        content = "本期一等奖奖金为" + prize_1 + "，二等奖奖金为" + prize_2 + ".\n本次您中得一等奖" + p1_sum + "注，二等奖" + p2_sum +
+                            "注，三等奖" + p3_sum + "注，四等奖" + p4_sum + "注，五等奖" + p5_sum + "注，六等奖" + p6_sum + "注。\n奖金共计" +
+                            prize_sum + "。您本期的净盈利为 " + profit + ".";
+                        alert(content);
+                    }
+
+                }
+            )
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <h1>⚪模拟双色球彩票投注与开奖⚪</h1>
+    <div class="note">仅供娱乐</div>
+    <div class="winningnum" id='last' hidden>
+        <p class="para">上一期的开奖号码是：</p>
+        <table border="0" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <th>开奖期数</th>
+                <th>开奖号码</th>
+            </tr>
+            <tr>
+                <th id="tbl_last_round">X0000</th>
+                <th>
+                    <ul id="last_winning_num">
+                        <li class="redball">01</li>
+                        <li class="redball">02</li>
+                        <li class="redball">03</li>
+                        <li class="redball">04</li>
+                        <li class="redball">05</li>
+                        <li class="redball">06</li>
+                        <li class="blueball">16</li>
+                    </ul>
+                </th>
+            </tr>
+            <tr>
+                <th>出球顺序</th>
+                <th><span style="color:red" id="sequence">01&nbsp;02&nbsp;03&nbsp;04&nbsp;05&nbsp;06&nbsp;</span><span
+                        style="color:blue" id="last_blueball">07</span></th>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div style="height: auto;text-align: center;">
+        <div id="select_red" style="text-align: center;">
+            <p style="text-align: center;"><span style="color:red;">红球区&nbsp;&nbsp;</span><span
+                    style="color:gray;font-size:small">选择6个号码</span></p>
+            <ul>
+                <div style="text-align: center;">
+                    <li class="sel_redball">01</li>
+                    <li class="sel_redball">02</li>
+                    <li class="sel_redball">03</li>
+                    <li class="sel_redball">04</li>
+                    <li class="sel_redball">05</li>
+                    <li class="sel_redball">06</li>
+                    <li class="sel_redball">07</li>
+                    <li class="sel_redball">08</li>
+                    <li class="sel_redball">09</li>
+                    <li class="sel_redball">10</li>
+                    <li class="sel_redball">11</li>
+                    <li class="sel_redball">12</li>
+                    <li class="sel_redball">13</li>
+                    <li class="sel_redball">14</li>
+                    <li class="sel_redball">15</li>
+                    <li class="sel_redball">16</li>
+                    <li class="sel_redball">17</li>
+                    <li class="sel_redball">18</li>
+                    <li class="sel_redball">19</li>
+                    <li class="sel_redball">20</li>
+                    <li class="sel_redball">21</li>
+                    <li class="sel_redball">22</li>
+                    <li class="sel_redball">23</li>
+                    <li class="sel_redball">24</li>
+                    <li class="sel_redball">25</li>
+                    <li class="sel_redball">26</li>
+                    <li class="sel_redball">27</li>
+                    <li class="sel_redball">28</li>
+                    <li class="sel_redball">29</li>
+                    <li class="sel_redball">30</li>
+                    <li class="sel_redball">31</li>
+                    <li class="sel_redball">32</li>
+                    <li class="sel_redball">33</li>
+                </div>
+            </ul>
+        </div>
+        <div id="select_blue" style="text-align: center;">
+            <p style="text-align: center;"><span style="color:blue">蓝球区&nbsp;&nbsp;</span><span
+                    style="color:gray;font-size:small">选择1个号码</span></p>
+            <ul>
+                <div style="text-align: center;">
+                    <li class="sel_blueball">01</li>
+                    <li class="sel_blueball">02</li>
+                    <li class="sel_blueball">03</li>
+                    <li class="sel_blueball">04</li>
+                    <li class="sel_blueball">05</li>
+                    <li class="sel_blueball">06</li>
+                    <li class="sel_blueball">07</li>
+                    <li class="sel_blueball">08</li>
+                    <li class="sel_blueball">09</li>
+                    <li class="sel_blueball">10</li>
+                    <li class="sel_blueball">11</li>
+                    <li class="sel_blueball">12</li>
+                    <li class="sel_blueball">13</li>
+                    <li class="sel_blueball">14</li>
+                    <li class="sel_blueball">15</li>
+                    <li class="sel_blueball">16</li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <button id="btn_add">增加一注</button>
+        <button id="btn_rand">机选一注</button>
+    </div>
+    <br />
+
+    <p style="text-align: center;"><span id="tb_now">第X001期 </span>您已选择的号码</p>
+
+    <table id="tbl_now_selected" border="0" align="center" cellpadding="0" cellspacing="0"
+        style="background-color: rgb(240, 240, 240);font-size:x-large">
+        <!--
+            <tr id="selected_0">
+            <th>
+                <span style="color:red">01 02 03 04 05 06 </span>
+                <span style="color:blue">07</span>
+            </th>
+            <th>
+                <li class="del_selected" id="del_selected_0">&nbsp;&nbsp;<a href="javascript:void(0)"
+                    onclick="del_a_selected('0')">删除</a></li>
+            </th>
+        </tr>
+        -->
+
+    </table>
+    <p id="sum_sel" style="text-align: center;font-weight: bold;">共计：0注，0元</p>
+    <div style="text-align: center;">
+        <button id="btn_bet">确认投注</button>
+    </div>
+    <div>
+        <p style="text-align: center;">当前您已获利 <span style="color: red;font-size:x-large" id="now_profit">0</span> 元</p>
+        <p style="text-align: center;">累计投注：<span style="color: red;font-size:x-large"
+                id="sum_cost">0</span>&nbsp;&nbsp;&nbsp;累计中奖：<span style="color: red;font-size:x-large"
+                id="sum_winning">0</span></p>
+    </div>
+    <div id="div_his_win" hidden>
+        <p class="para">历史开奖号码：</p>
+        <table id="his_win_num" border="0" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <th>开奖期数</th>
+                <th>开奖号码</th>
+            </tr>
+            <!--
+            <tr>
+                <th>X0000</th>
+                <th>
+                    <ul>
+                        <li class="redball">01</li>
+                        <li class="redball">02</li>
+                        <li class="redball">03</li>
+                        <li class="redball">04</li>
+                        <li class="redball">05</li>
+                        <li class="redball">06</li>
+                        <li class="blueball">16</li>
+                    </ul>
+                </th>
+            </tr>
+        -->
+    </div>
+    <br /><br />
+    <p>&nbsp;</p>
+</body>
+
+<script>
+    $("#tb_now").text("第X" + now_round + "期");
+    function del_a_selected(i) {
+        $("#selected_" + i).remove();
+        now_add_num -= 1;
+        $("#sum_sel").html("共计：" + now_add_num + "注，" + now_add_num * 2 + "元");
+    }
+</script>
+
+</html>
