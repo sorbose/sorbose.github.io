@@ -127,12 +127,17 @@
             display: inline;
             font-size: medium;
         }
-        #explain{
+
+        .aKindOfPrize {
+            font-size: small;
+            margin: 1px;
+        }
+
+        #explain {
             overflow: hidden;
             height: 40px;
             transition: height 0.5s;
         }
-
     </style>
     <script>
         now_sel_red = [];
@@ -143,19 +148,18 @@
         now_round = 1;
         $(document).ready(function () {
             $("#explain_summary").click(
-                function(){
-                    if($("#explain").height()<=50)
-                    {
-                        $("#explain").css("height","300px");
-                        $("#explain").css("overflow","auto");
+                function () {
+                    if ($("#explain").height() <= 50) {
+                        $("#explain").css("height", "300px");
+                        $("#explain").css("overflow", "auto");
                         $(this).text("▼点击收起");
                     }
-                    else{
-                        $("#explain").css("height","40px");
-                        $("#explain").css("overflow","hidden");
+                    else {
+                        $("#explain").css("height", "40px");
+                        $("#explain").css("overflow", "hidden");
                         $(this).text("▶点击展开玩法说明");
                     }
-                    
+
                 }
             )
             $(".sel_redball").click(
@@ -221,6 +225,7 @@
                 <li class="del_selected" id="del_selected_`+ add_sum + `">&nbsp;&nbsp;<a href="javascript:void(0)"
                     onclick="del_a_selected('`+ add_sum + `')">删除</a></li>
             </th>
+            <th class="aKindOfPrize"></th>
         </tr>`;
                     $("#tbl_now_selected").append(content);
                     now_add_num += 1;
@@ -359,46 +364,60 @@
                                     if (win_blue_num) {
                                         prize_sum += prize_1;
                                         p1_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("一等奖");
                                     } else {
                                         prize_sum += prize_2;
                                         p2_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("二等奖");
                                     }
                                     break;
                                 case 5:
                                     if (win_blue_num) {
                                         prize_sum += prize_3;
                                         p3_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("三等奖");
                                     } else {
                                         prize_sum += prize_4;
                                         p4_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("四等奖");
                                     }
                                     break;
                                 case 4:
                                     if (win_blue_num) {
                                         prize_sum += prize_4;
                                         p4_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("四等奖");
                                     } else {
                                         prize_sum += prize_5;
                                         p5_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("五等奖");
                                     }
                                     break;
                                 case 3:
-                                    if (win_blue_num){
+                                    if (win_blue_num) {
                                         prize_sum += prize_5;
                                         p5_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("五等奖");
+                                    }
+                                    else {
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("未中奖");
                                     }
                                     break;
                                 default:
                                     if (win_blue_num) {
                                         prize_sum += prize_6;
                                         p6_sum++;
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("六等奖");
+                                    }
+                                    else {
+                                        $("#tbl_now_selected tr:eq(" + i + ") th:eq(2)").text("未中奖");
                                     }
                             }
                         }
                         $("#tbl_last_round").text("X" + now_round);
                         $("#sequence").text(content);
                         content = "";
-                        
+
                         content = winning_blue;
                         $("#last_blueball").text(content);
                         winning_red.sort();
@@ -453,26 +472,26 @@
             本项目仅供娱乐和学习交流使用。
         </p>
         <p>
-            中奖规则：<br/>
-            一等奖：投注号码与当期开奖号码全部相同（顺序不限，下同），即中奖；<br/>
-二等奖：投注号码与当期开奖号码中的6个红色球号码相同，即中奖；<br/>
-三等奖：投注号码与当期开奖号码中的任意5个红色球号码和1个蓝色球号码相同，即中奖；<br/>
-四等奖：投注号码与当期开奖号码中的任意5个红色球号码相同，或与任意4个红色球号码和1个蓝色球号码相同，即中奖；<br/>
-五等奖：投注号码与当期开奖号码中的任意4个红色球号码相同，或与任意3个红色球号码和1个蓝色球号码相同，即中奖；<br/>
-六等奖：投注号码与当期开奖号码中的1个蓝色球号码相同，即中奖。
+            中奖规则：<br />
+            一等奖：投注号码与当期开奖号码全部相同（顺序不限，下同），即中奖；<br />
+            二等奖：投注号码与当期开奖号码中的6个红色球号码相同，即中奖；<br />
+            三等奖：投注号码与当期开奖号码中的任意5个红色球号码和1个蓝色球号码相同，即中奖；<br />
+            四等奖：投注号码与当期开奖号码中的任意5个红色球号码相同，或与任意4个红色球号码和1个蓝色球号码相同，即中奖；<br />
+            五等奖：投注号码与当期开奖号码中的任意4个红色球号码相同，或与任意3个红色球号码和1个蓝色球号码相同，即中奖；<br />
+            六等奖：投注号码与当期开奖号码中的1个蓝色球号码相同，即中奖。
         </p>
         <p>
-            中奖概率：<br/>
-            一等奖（6+1）中奖概率为：红球33选6乘以蓝球16选1=1/17721088=0.0000056%；<br/>
-二等奖（6+0）中奖概率为：红球33选6乘以蓝球16选0=15/17721088=0.0000846%；<br/>
-三等奖（5+1）中奖概率为：红球33选5乘以蓝球16选1=162/17721088=0.000914%；<br/>
-四等奖（5+0、4+1）中奖概率为：红球33选5乘以蓝球16选0=7695/17721088=0.0434%；<br/>
-五等奖（4+0、3+1）中奖概率为：红球33选4乘以蓝球16选0=137475/17721088=0.7758%；<br/>
-六等奖（2+1、1+1、0+1）中奖概率为：红球33选2乘以蓝球16选1=1043640/17721088=5.889%；<br/>
-共计中奖率：6.71%。
+            中奖概率：<br />
+            一等奖（6+1）中奖概率为：红球33选6乘以蓝球16选1=1/17721088=0.0000056%；<br />
+            二等奖（6+0）中奖概率为：红球33选6乘以蓝球16选0=15/17721088=0.0000846%；<br />
+            三等奖（5+1）中奖概率为：红球33选5乘以蓝球16选1=162/17721088=0.000914%；<br />
+            四等奖（5+0、4+1）中奖概率为：红球33选5乘以蓝球16选0=7695/17721088=0.0434%；<br />
+            五等奖（4+0、3+1）中奖概率为：红球33选4乘以蓝球16选0=137475/17721088=0.7758%；<br />
+            六等奖（2+1、1+1、0+1）中奖概率为：红球33选2乘以蓝球16选1=1043640/17721088=5.889%；<br />
+            共计中奖率：6.71%。
         </p>
         <p>
-            模拟奖金说明：<br/>
+            模拟奖金说明：<br />
             因无法模拟奖池，故一、二等奖的奖金计算方法与真实情况不同。
             一等奖的奖金设置为5,000,000-10,000,000之间的随机数，
             二等奖的奖金设置为80,000-250,000之间的随机数（自动扣除20%的偶然所得税），
