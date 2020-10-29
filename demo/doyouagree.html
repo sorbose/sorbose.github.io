@@ -44,7 +44,7 @@
     try {
         cont = url.match(/\?content=(\S*)&?/i)[1];
     } catch (err) {
-        cont = "Could you be my girlfriend?";
+        cont = "Would you be my girlfriend?";
     }
     cont=decodeURI(cont);
     document.getElementsByTagName("title")[0].innerText=document.getElementById("content").innerText = cont;
