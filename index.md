@@ -18,4 +18,4 @@
 
 ## <a href="/demo/doyouagree.html">很难说"NO"</a>
 
-## <a href="/demo/amp/preAMP.amp.html">AMP测试网页</a>
+## <a href="/demo/amp/templates/preAMP.amp.html">AMP测试网页</a>
