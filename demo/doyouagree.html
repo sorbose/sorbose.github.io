@@ -44,7 +44,7 @@
     try {
         cont = url.match(/\?content=(\S*)&?/i)[1];
     } catch (err) {
-        cont = "Would you be my girlfriend?";
+        cont = "在URL后面追加?content=你想设置的内容";
     }
     cont=decodeURI(cont);
     document.getElementsByTagName("title")[0].innerText=document.getElementById("content").innerText = cont;
