@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 5px 2px;
+        }
+
+        #photo {
+            width: 100px;
+            height: 140px;
+            display: block;
+        }
+
+        button {
+            padding: 2px 5px;
+            margin: 5px 10px;
+        }
+        input[type='checkbox']{
+            margin-left: 5px;
+            margin-right: 0;
+        }
+    </style>
+    <script>
+        function preview(file) {
+            var url = URL.createObjectURL(file);
+            console.log(url);
+            document.getElementById('photo').src = url;
+        }
+        function inputDisabled() {
+            var inputs = document.querySelectorAll('input:not([type=button],[type=submit])');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = "disabled";
+            }
+            var inputs = document.querySelectorAll('textarea');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = "disabled";
+            }
+            document.getElementById("save").disabled="disabled";
+            document.getElementById("edit").disabled="";
+            document.querySelectorAll('input[type=file]')[0].style.display="none";
+        }
+        function inputEnabled() {
+            var inputs = document.querySelectorAll('input:not([type=button],[type=submit])');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = "";
+            }
+            var inputs = document.querySelectorAll('textarea');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = "";
+            }
+            document.getElementById("edit").disabled="disabled";
+            document.getElementById("save").disabled="";
+            document.querySelectorAll('input[type=file]')[0].style.display="";
+        }
+    </script>
+    <title>个人主页</title>
+</head>
+
+<body>
+    <h1 style="text-align: center;">个人简介</h1>
+        <table style="margin: 0 auto;" class="table-striped table-hover table-responsive">
+            <tr>
+                <td>姓名</td>
+                <td id="name"><input class="form-control"></td>
+                <td>性别</td>
+                <td id="gender"><input type="radio" name="gender">男<input type="radio" name="gender">女</td>
+                <td rowspan="2" style="max-width: 120px;overflow-x: scroll;"><img id="photo"
+                        class="img-responsive"><input type="file" accept="image/*" onchange="preview(this.files[0])">
+                </td>
+            </tr>
+            <tr>
+                <td>年龄</td>
+                <td><input type="number" max=120 min=0 class="form-control"></td>
+                <td>籍贯</td>
+                <td><input maxlength="20" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>个人简介</td>
+                <td colspan="4" style="min-height: 100px;">
+                    <textarea style="width: 97%;height: 100px;"
+                        oninput="document.getElementById('word-count').innerText=this.textLength"></textarea>
+                    <div class="text-muted small">
+                        <span>已输入字数：</span><span id="word-count">0</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>兴趣爱好</td>
+                <td colspan="4"><input type="checkbox">跑步<input type="checkbox">打球<input type="checkbox">画画<input
+                        type="checkbox">弹琴<input type="checkbox">下棋<input type="checkbox">其他</td>
+            </tr>
+            <tr>
+                <td>特长</td>
+                <td colspan="4"><input type="checkbox">唱歌<input type="checkbox">书画<input type="checkbox">编程<input
+                        type="checkbox">其他</td>
+            </tr>
+        </table>
+    <div style="text-align: center;">
+        <button id="edit" class="btn btn-primary" onclick="inputEnabled()" disabled>编辑</button>
+        <button id="save" class="btn btn-success" onclick="inputDisabled()">保存</button>
+    </div>
+</body>
+
+</html>
