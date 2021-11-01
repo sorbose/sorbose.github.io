@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css.css">
+    <title>CSS应用 - 主页</title>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="banner">
+            WEB系统与技术 - 实验
+        </div>
+        <div id="nav">
+            <ul>
+                <li><a href="#"> 实验1</a> </li>
+                <li><a href="#"> 实验2</a> </li>
+                <li><a href="#"> 实验3</a> </li>
+                <li><a href="#"> 实验4</a> </li>
+                <li><a href="#"> 实验5</a> </li>
+                <li><a href="#"> 实验6</a> </li>
+                <li><a href="#"> 实验7</a> </li>
+                <li><a href="#"> 实验8</a> </li>
+            </ul>
+        </div>
+        <div id="left">
+            <h1>CSS应用</h1>
+            <p><a href="#" onclick="document.getElementById('iframe').src='./webpage.html';
+            document.getElementById('title').innerText='格式化网页'">格式化网页</a></p>
+            <p><a href="#" onclick="document.getElementById('iframe').src='./word.html';
+            document.getElementById('title').innerText='格式化文字'">格式化文字</a></p>
+            <p><a href="#" onclick="document.getElementById('iframe').src='./table.html';
+            document.getElementById('title').innerText='格式化表格'">格式化表格</a></p>
+        </div>
+        <div id="right">
+            <h1 id="title">格式化网页</h1>
+            <iframe id="iframe" src="./webpage.html"></iframe>
+        </div>
+        <div id="copyright">
+            <footer>
+                <p>2021-2022-1学期 Web系统与技术</p>
+                <a href="mailto:">Email:</a>
+            </footer>
+        </div>
+    </div>
+
+</body>
+
+</html>
