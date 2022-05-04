@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <head>
+    <script>
+      function rec(){
+        fetch("http://106.13.201.126:1025/rec", {
+          "headers": {
+           },
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "omit"
+        });
+      }
+    </script>
+    
+  </head>
+<body onload="rec()">
 
 <h2>我的第一段 JavaScript</h2>
 
